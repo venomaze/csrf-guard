@@ -42,7 +42,7 @@ class HMACBasedPattern {
 
     const isHashValid = expected === hash;
     const isTimestampValid = expiryTime
-      ? Date.now() - timestamp > expiryTime
+      ? Date.now() - timestamp < expiryTime
       : true;
 
     return isHashValid && isTimestampValid;
