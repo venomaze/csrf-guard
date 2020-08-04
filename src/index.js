@@ -12,9 +12,13 @@ class CSRFGuard {
     this.expiryTime = options.expiryTime || null;
     this.synchronizer =
       typeof options.synchronizer === 'boolean' ? options.synchronizer : true;
+    this.errorMessages = {
+      noSecret: 'Secret key must be included.',
+      noSession: 'Session object is not available.',
+    };
 
     if (!this.secret) {
-      throw new Error('Secret key must be included.');
+      throw new Error(this.errorMessages.noSecret);
     }
 
     return this.middleware.bind(this);
@@ -40,7 +44,7 @@ class CSRFGuard {
        */
 
       if (!req.session) {
-        throw new Error('Session object is not available.');
+        throw new Error(this.errorMessages.noSession);
       }
 
       /**
@@ -80,7 +84,7 @@ class CSRFGuard {
 
     const isTokenValid = () => {
       if (!req.session) {
-        throw new Error('Session object is not available.');
+        throw new Error(this.errorMessages.noSession);
       }
 
       const clientToken =
