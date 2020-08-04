@@ -6,6 +6,7 @@
     "no-console": "off",
     "no-undef": "off",
     "node/no-unpublished-require": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "class-methods-use-this": "off"
   }
 }
