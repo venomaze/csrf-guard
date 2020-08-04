@@ -83,7 +83,7 @@ app.post('/test', (req, res) => {
 
 ## Token generation methods
 
-We have to options, the first one is **Synchronizer Token Pattern** and the second one is **HMAC Based Token Pattern**. You can read more about the [here](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
+We have to options, the first one is **Synchronizer Token Pattern** and the second one is **HMAC Based Token Pattern**. You can read more about them [here](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 
 ### Synchronizer Token Pattern
 
@@ -107,7 +107,7 @@ const token = await req.getToken(true); // Forced is set to true. This way you'l
 
 ### HMAC Based Token Pattern
 
-To be able to use this method, you have to set `synchronizer` to `false` in options object. With this method you have access to `expiryTime` option which gives you this possibility to expire tokens even if the session isn't changed. By default, tokens won't be expired until the session is changed.  
+To be able to use this method, you have to set `synchronizer` to `false` in options object. With this method you have access to `expiryTime` option which gives you this possibility to expire tokens even if the session id isn't changed. By default, tokens won't be expired until the session is regenerated.  
 **Setting up**:
 
 ```js
