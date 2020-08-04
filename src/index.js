@@ -1,11 +1,17 @@
 const { SynchronizerPattern, HMACBasedPattern } = require('./lib/token');
 
 class CSRFGuard {
+  /**
+   * Set up the main middleware
+   * @constructor
+   * @param {Object} [options] - Custom options (optional)
+   * @returns {Function} - CSRF Guard middleware
+   */
   constructor(options = {}) {
     this.secret = options.secret;
+    this.expiryTime = options.expiryTime || null;
     this.synchronizer =
       typeof options.synchronizer === 'boolean' ? options.synchronizer : true;
-    this.expiryTime = options.expiryTime || null;
 
     if (!this.secret) {
       throw new Error('Secret key must be included.');
@@ -14,8 +20,25 @@ class CSRFGuard {
     return this.middleware.bind(this);
   }
 
+  /**
+   * @property {Function} middleware - The main Anti-CSRF middleware
+   * @param {Object} req - Express request object
+   * @param {Object} res - Express response object
+   * @param {Function} next - Express next middleware
+   * @returns {void} - Call the next middleware
+   */
   async middleware(req, res, next) {
+    /**
+     * Generate and set the token
+     * @param {Boolean} [forced] - Force to generate a new token (optional)
+     * @returns {String} - Generated token for the client
+     */
     const getToken = async (forced = false) => {
+      /**
+       * Forced option can be used only with Synchronizer pattern.
+       * With HMAC Based pattern, a new token is generated anyway.
+       */
+
       if (!req.session) {
         throw new Error('Session object is not available.');
       }
@@ -47,7 +70,7 @@ class CSRFGuard {
       }
 
       /**
-       * HMAC Based Token Pattern
+       * Using HMAC Based Token Pattern
        */
       const sid = req.session.id;
       const token = HMACBasedPattern.generateToken(sid, this.secret);
@@ -71,7 +94,7 @@ class CSRFGuard {
       if (!clientToken) return false;
 
       /**
-       * Synchronizer Token Pattern
+       * Using Synchronizer Token Pattern
        */
       if (this.synchronizer) {
         if (!req.session.csrf_token) return false;
@@ -87,7 +110,7 @@ class CSRFGuard {
       }
 
       /**
-       * HMAC Based Token Pattern
+       * Using HMAC Based Token Pattern
        */
       const sid = req.session.id;
       const isValid = HMACBasedPattern.verifyToken(
