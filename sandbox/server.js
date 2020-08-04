@@ -14,9 +14,24 @@ app.use(
 app.use(express.urlencoded());
 app.use(express.json());
 
+/**
+ * Synchronizer Token Pattern:
+ *
+ * app.use(
+ *  new CSRFGuard({
+ *     secret: 'secret_key',
+ *  })
+ * );
+ */
+
+/**
+ * HMAC Based Token Pattern:
+ */
 app.use(
   new CSRFGuard({
     secret: 'secret_key',
+    synchronizer: false,
+    expiryTime: 5000,
   })
 );
 
