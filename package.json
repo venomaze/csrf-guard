@@ -1,7 +1,7 @@
 {
   "name": "csrf-guard",
   "version": "0.1.0",
-  "description": "🎟️ Simple Anti-CSRF Token implementation for Express applications.",
+  "description": "Simple Anti-CSRF Token implementation for Express applications.",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"

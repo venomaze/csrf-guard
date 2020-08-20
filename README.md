@@ -1,11 +1,12 @@
 # csrf-guard
 
-🎟️ Simple Anti-CSRF Token implementation for Express applications.  
+> Simple Anti-CSRF Token implementation for Express applications.
+
 This package only uses Node.js native [crypto](https://nodejs.org/api/crypto.html) module and no other dependency.
 I did my best to follow [OWASP CSRF token best practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 Now it's your responsibilty to follow best practices for session management. I do recommend you read [this](https://blog.jscrambler.com/best-practices-for-secure-session-management-in-node/) article before anything else.
 
-**⚠️ This package is still under development, I do NOT recommend using it for production yet.**
+**Disclaimer**: This package is still under development, I do NOT recommend using it for production yet.
 
 ## Installation
 
